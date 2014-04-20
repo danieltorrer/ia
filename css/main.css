@@ -1,0 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+body,html{
+	height: 100%;
+	font-family: 'Lato', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6,p,a,span{
+	font-family: 'Lato', sans-serif;
+}
+
+#map{
+	width: 100%;
+	//height: calc(100% - 50px);
+	height: 100%;
+}
+
+#map img{
+	max-width : none;
+}
+
+#map div {
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box !important;
+	box-sizing: content-box !important;
+}
+
+.gmap-icons img{
+	max-width: none
+}
+
+.gm-style-iw{
+	//width: calc(100% - 12px) !important;
+	width: 100% !important;
+}
+
+.powered{
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}
+
+.option{
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	width: 350px;
+	max-height: calc(95% - 50px);
+	background: white;
+	border: 1px solid #000;
+	padding: 10px;
+	overflow-y: scroll;
+}
+
+.lugares .lugar{
+	padding: 5px 0;
+	border-bottom: 1px solid #aaa;
+}
+
+.lugares .lugar img{
+	height: 25px;
+	margin-right: 10px;
+}
+
+.lugares .lugar span{
+	font-size: .8em;
+}
+
