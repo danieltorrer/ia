@@ -3,31 +3,108 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Mapa</title>
-	<link rel="stylesheet" href="css/foundation.css" />
-	<link rel="stylesheet" href="css/main.css" />
+	<title>Viajes</title>
+	<link rel="stylesheet" href="css/normalize.min.css">
+	<link rel="stylesheet" href="css/foundation.min.css" />
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/main.min.css" />
 	<script src="js/vendor/modernizr.js"></script>
 </head>
 <body>
-	
-	<div id="map"></div>
-	<div class="option">
-		<div><h4>Lugares</h4></div>
-		<hr>
-		<div class="lugares">
-			
+
+	<div class="row paso1">
+		<div class="large-12 columns">
+			<div class="form">
+				<div class="natural-query">
+					Deseo visitar un lugar 
+					
+					<div class="field">
+						<a href="#" class="field-toggle">histórico</a>
+						<ul>
+							<li class="field-selected" data-value="">histórico</li>
+							<li data-value="">ecológico</li>
+							<li data-value="">moderno</li>
+							<li data-value=""></li>
+						</ul>
+					</div> que esté a 
+					
+					<div class="field">
+						<a href="#" class="field-toggle">una hora</a>
+						<ul>
+							<li class="field-selected" data-value="">una hora</li>
+							<li data-value="">dos horas</li>
+							<li data-value="">tres horas</li>
+						</ul>
+					</div>
+					
+					de distancia, quiero ir 
+					
+					<div class="field">
+						<a href="#" class="field-toggle">en carro</a>
+						<ul>
+							<li class="field-selected">en carro</li>
+							<li>a pie</li>
+						</ul>
+					</div> y tengo un presupuesto de
+					
+					<div class="field">
+						<a href="#" class="field-toggle">menos de $500.00</a>
+						<ul>
+							<li class="field-selected" data-id="1">menos de $100.00</li>
+							<li class="field-selected" data-id="2">menos de $200.00</li>
+							<li class="field-selected" data-id="3">menos de $300.00</li>
+							<li class="field-selected" data-id="4">menos de $400.00</li>
+							<li data-id="5">mas de $500.00</li>
+						</ul>
+					</div>.
+					
+					<div class="submit-container">
+						<button id="nl-submit" class="submit" type="submit">Encontrar destinos</button>
+					</div>
+
+					<div class="background"></div>
+				</div>
+
+				<div class="select">
+					<select>
+						<option value="1" selected>una hora</option>
+						<option value="2">dos horas</option>
+						<option value="3">tres horas</option>
+					</select>
+
+					<select>
+						<option value="1" selected>una hora</option>
+						<option value="2">dos horas</option>
+						<option value="3">tres horas</option>
+					</select>
+
+					<select>
+						<option value="1" selected>a pie</option>
+						<option value="2">en carro</option>
+						<option value="3">en bici</option>
+					</select>
+				</div>
+
+			</div>
 		</div>
 	</div>
-	<div class="powered"><img src="img/powered-by-google-on-white.png" alt=""></div>
+
+	<div class="paso2 ocultar">
+		<div id="map"></div>
+		<div class="option">
+			<div><h4>Lugares</h4></div>
+			<hr>
+			<div class="lugares">
+
+			</div>
+		</div>
+		<div class="powered"><img src="img/powered-by-google-on-white.png" alt=""></div>
+	</div>
+
 	
 	<script src="js/vendor/jquery.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-	
 	<script src="js/foundation.min.js"></script>
-	<script src="js/map.js"></script>
-	<script src="js/places.js"></script>
-	<script>
-	$(document).foundation();
-	</script>
+	<script src="js/map.min.js"></script>
 </body>
 </html>
