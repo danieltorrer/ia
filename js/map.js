@@ -125,6 +125,7 @@ $(document).ready(function(){
 
 	$(".field ul>li").click(function(){
 		console.log( $(this).text() )
+		
 		//console.log( $(this).parent().parent().children(".field-toggle").text())
 		$(this).parent().parent().children(".field-toggle").text( $(this).text() )
 
@@ -133,7 +134,7 @@ $(document).ready(function(){
 	})
 
 	$("#nl-submit").click(function(){
-		query = "https://api.foursquare.com/v2/venues/explore?client_id=Z0IEHNY5BAQXCLVYS3FASWUJKLHNOKD3C3M100RUXBROCT0Q&client_secret=03ZQUSZDUSX4HF3H1W0KU31UMIWGATPOU2JZ4XFB1VDZTLIE&v=20130815&ll=" + lat + "," + lon + "+&section=" + tipo + "&price" + precio
+		query = "https://api.foursquare.com/v2/venues/explore?client_id=Z0IEHNY5BAQXCLVYS3FASWUJKLHNOKD3C3M100RUXBROCT0Q&client_secret=03ZQUSZDUSX4HF3H1W0KU31UMIWGATPOU2JZ4XFB1VDZTLIE&v=20130815&ll=" + lat + "," + lon + "+&categoryId=" + tipo + "&price" + precio
 		$(".paso1").addClass("ocultar")
 		$(".paso2").removeClass("ocultar")
 
