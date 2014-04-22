@@ -6,6 +6,7 @@
 	<title>Viajes</title>
 	<link rel="stylesheet" href="css/normalize.min.css">
 	<link rel="stylesheet" href="css/foundation.min.css" />
+	<link rel="stylesheet" href="css/foundation-icons.css" />
 	<link rel="stylesheet" href="css/animate.min.css">
 	<link rel="stylesheet" href="css/main.min.css" />
 	<script src="js/vendor/modernizr.js"></script>
@@ -21,9 +22,12 @@
 					<div class="field">
 						<a href="#" class="field-toggle">histórico</a>
 						<ul>
-							<li class="field-selected tipo" data-value="4deefb944765f83613cdba6e">histórico</li>
-							<li class="tipo" data-value="4d4b7105d754a06377d81259">ecológico</li>
-							<li class="tipo" data-value="4d4b7105d754a06374d81259">de comida</li>
+							<li data-type="tipo" data-value="4d4b7104d754a06370d81259" class="field-selected" >histórico</li>
+							<li data-type="tipo" data-value="4d4b7105d754a06377d81259">ecológico</li>
+							<li data-type="tipo" data-value="4d4b7105d754a06374d81259">de comida</li>
+							<li data-type="tipo" data-value="4d4b7105d754a06373d81259">de eventos</li>
+							<li data-type="tipo" data-value="4d4b7105d754a06376d81259">de vida nocturna</li>
+							<li data-type="tipo" data-value="4d4b7105d754a06377d81259">al aire libre</li>
 						</ul>
 					</div>
 					<!--</div> que esté a 
@@ -42,21 +46,21 @@
 					<div class="field">
 						<a href="#" class="field-toggle">en carro</a>
 						<ul>
-							<li class="field-selected">en carro</li>
-							<li>a pie</li>
+							<li data-type="radius" data-value="5000" class="field-selected">en carro</li>
+							<li data-type="radius" data-value="1000">a pie</li>
 						</ul>
-					</div> y tengo un presupuesto de
+					</div> <!--y tengo un presupuesto de
 					
 					<div class="field">
 						<a href="#" class="field-toggle">menos de $100.00</a>
 						<ul>
-							<li class="field-selected precio" data-id="1">menos de $100.00</li>
-							<li class="precio" data-id="2">menos de $200.00</li>
-							<li class="precio" data-id="3">menos de $300.00</li>
-							<li class="precio" data-id="4">menos de $400.00</li>
-							<li class="precio" data-id="5">mas de $500.00</li>
+							<li data-type="precio" data-value="1" class="field-selected">menos de $100.00</li>
+							<li data-type="precio" data-value="2">menos de $200.00</li>
+							<li data-type="precio" data-value="3">menos de $300.00</li>
+							<li data-type="precio" data-value="4">menos de $400.00</li>
+							<li data-type="precio" data-value="5">mas de $500.00</li>
 						</ul>
-					</div>.
+					</div>.-->
 					
 					<div class="submit-container">
 						<button id="nl-submit" class="submit" type="submit">Encontrar destinos</button>

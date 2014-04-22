@@ -96,14 +96,15 @@ options = {
 		mapTypeIds: ["Styled"]
 	},
 	center: new google.maps.LatLng(lat, lon),
-	zoom: 15,
+	zoom: 13,
 	mapTypeId: "Styled",
 	streetViewControl: !1,
 	overviewMapControl: !1,
 	mapTypeControl: !1
 },
-tipo = "outdoors",
-precio = ""
+tipo = "4deefb944765f83613cdba6e",
+precio = "1",
+radius = "5000",
 div = document.getElementById("map"),
 map = null,
 query = ""
@@ -124,17 +125,39 @@ $(document).ready(function(){
 	})
 
 	$(".field ul>li").click(function(){
-		console.log( $(this).text() )
+		//console.log( $(this).text() )
 		
 		//console.log( $(this).parent().parent().children(".field-toggle").text())
 		$(this).parent().parent().children(".field-toggle").text( $(this).text() )
 
 		$(".background").removeClass("open")
-		$(".field-open").removeClass("field-open")			
+		$(".field-open").removeClass("field-open")
+
+		var caso = $(this).attr("data-type")
+		
+		//console.log(caso);
+		switch (caso){
+			case "tipo":
+			tipo = $(this).attr("data-value")
+			console.log("tipo");
+			break
+
+			case "radius":
+			radius = $(this).attr("data-value")
+			console.log("raidous");
+			break
+
+			case "precio":
+			precio = $(this).attr("data-value")
+			console.log("precio");
+			break
+		}	
+
 	})
 
 	$("#nl-submit").click(function(){
-		query = "https://api.foursquare.com/v2/venues/explore?client_id=Z0IEHNY5BAQXCLVYS3FASWUJKLHNOKD3C3M100RUXBROCT0Q&client_secret=03ZQUSZDUSX4HF3H1W0KU31UMIWGATPOU2JZ4XFB1VDZTLIE&v=20130815&ll=" + lat + "," + lon + "+&categoryId=" + tipo + "&price" + precio
+		query = "https://api.foursquare.com/v2/venues/explore?client_id=Z0IEHNY5BAQXCLVYS3FASWUJKLHNOKD3C3M100RUXBROCT0Q&client_secret=03ZQUSZDUSX4HF3H1W0KU31UMIWGATPOU2JZ4XFB1VDZTLIE&v=20130815&ll=" + lat + "," + lon + "&categoryId=" + tipo + "&radius=" + radius
+		//console.log(query);
 		$(".paso1").addClass("ocultar")
 		$(".paso2").removeClass("ocultar")
 
@@ -148,7 +171,7 @@ $(document).ready(function(){
 
 
 function initialize() {
-	map.mapTypes.set("Styled", styledMapType), new google.maps.InfoWindow, console.log(query), $.getJSON(query, buildList)
+	map.mapTypes.set("Styled", styledMapType), new google.maps.InfoWindow, $.getJSON(query, buildList)
 }
 
 function createMarker(a, b, c, d, e, id) {
@@ -167,16 +190,26 @@ function createMarker(a, b, c, d, e, id) {
 	var lugar = "<div class='lugar'>"
 	lugar += "<img src='" + e + "bg_64.png'>" 
 	lugar += "<span>" + c + "</span>" 
-	lugar += "<i class='oculto boton-add right fi-plus' href='#' data-id='"+ id + "'></i>" 
+	lugar += "<i class='ocultar boton-add right fi-plus' href='#' data-id='"+ id + "'></i>" 
 	lugar += "</div>"
 	$(".lugares").append(lugar)
+
+	$(".lugar").mouseover(function(){
+		$(this).children(".boton-add").removeClass("ocultar")
+	})
+
+	$(".lugar").mouseout(function(){
+		$(this).children(".boton-add").addClass("ocultar")
+	})
+
+
 }
 
 function buildList(a) {
 	infowindow = new google.maps.InfoWindow
 
 	$.each(a.response.groups[0].items, function (a, b) {
-		createMarker(b.venue.location.lat, b.venue.location.lng, b.venue.name, b.venue.categories[0].shortName, b.venue.categories[0].icon.prefix, b.id)
+		createMarker(b.venue.location.lat, b.venue.location.lng, b.venue.name, b.venue.categories[0].shortName, b.venue.categories[0].icon.prefix, b.venue.id)
 		console.log(b)
 	})
 }

@@ -54,7 +54,7 @@ h1,h2,h3,h4,h5,h6,p,a,span{
 	position: absolute;
 	top: 50px;
 	right: 50px;
-	width: 350px;
+	width: 380px;
 	max-height: calc(95% - 50px);
 	background: white;
 	border: 1px solid #000;
@@ -78,6 +78,11 @@ h1,h2,h3,h4,h5,h6,p,a,span{
 
 .lugares .lugar:hover{
 	background: #aaa;
+	cursor: pointer;
+}
+
+.lugares .lugar:active{
+	background: #bbb;
 }
 
 .boton-add{
