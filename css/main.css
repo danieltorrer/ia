@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,400italic);
 
 body,html{
 	height: 100%;
@@ -62,37 +62,45 @@ h1,h2,h3,h4,h5,h6,p,a,span{
 	overflow-y: scroll;
 }
 
-.lugares .lugar{
-	padding: 5px 0 5px 5px;
+.lugar{
+	padding: 8px 0 8px 8px;
 	border-bottom: 1px solid #666;
 }
 
-.lugares .lugar img{
+.lugar img{
 	height: 25px;
 	margin-right: 10px;
 }
 
-.lugares .lugar span{
-	font-size: .8em;
+.lugar span{
+	font-size: .7em;
+	color: black;
 }
 
-.lugares .lugar:hover{
-	background: #aaa;
+.lugar:hover{
+	background: #f7f1df;
 	cursor: pointer;
 }
 
-.lugares .lugar:active{
-	background: #bbb;
+.lugar:active{
+	background: #e8ddbd;
 }
 
 .boton-add{
 	color: black;
 	margin-right: 10px;
-	margin-top: 5px;
+	margin-top: 2px;
+	//border-radius: 3px;
+	//border: 1px solid black;
+	font-size: 1.4em;
+}
+
+.boton-add:hover{
+	color: #a2daf2;
 }
 
 /**** Form ****/
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,400italic);
+
 
 body{
 	background: #5094D9;
