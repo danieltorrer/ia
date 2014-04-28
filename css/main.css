@@ -204,6 +204,10 @@ ul.field-open{
 	position: relative;
 }
 
+.seleccion .boton-add{
+	display: none;
+}
+
 .form .natural-query #nl-submit{
 	//font-family: 'Open Sans', sans-serif;
 	font-family: 'Lato', sans-serif !important;

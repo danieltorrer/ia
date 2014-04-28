@@ -1,6 +1,9 @@
 /* variables */
 var lat = 19.413821,
 lon = -99.136505,
+that,
+directionsDisplay,
+directionsService = new google.maps.DirectionsService(),
 styles = [{
 	featureType: "water",
 	elementType: "geometry",
@@ -91,30 +94,39 @@ styles = [{
 		color: "#cfb2db"
 	}]
 }],
-options = {
-	mapTypeControlOptions: {
-		mapTypeIds: ["Styled"]
-	},
-	center: new google.maps.LatLng(lat, lon),
-	zoom: 13,
-	mapTypeId: "Styled",
-	streetViewControl: !1,
-	overviewMapControl: !1,
-	mapTypeControl: !1
-},
 tipo = "4deefb944765f83613cdba6e",
 precio = "1",
 radius = "8000",
 div = document.getElementById("map"),
 map = null,
 query = "",
-markers = [];
+latitudG,
+longitudG,
+markers = [],
+seleccion = new Array();
 
 //google.maps.event.addDomListener(window, "load", initialize);
 
 $(document).foundation();
 
 $(document).ready(function(){
+
+	/*navigator.geolocation.getCurrentPosition(GetLocation);
+	function GetLocation(location) {
+		lat = location.coords.latitude
+		lon = Glocation.coords.longitude
+	}*/
+
+	if (navigator.geolocation)
+		navigator.geolocation.getCurrentPosition(showPosition);
+	else
+		alert("Este navegador no soporta geolocalizacion")
+
+	function showPosition(position){
+		lat =  position.coords.latitude
+		lon =  position.coords.longitude
+	}
+
 	$(".field-toggle").click(function(){
 		$(".background").addClass("open")
 		$(this).parent().find("ul").addClass("fadeInUp").addClass("field-open")
@@ -125,10 +137,44 @@ $(document).ready(function(){
 		$(".field-open").removeClass("field-open")
 	})
 
-	$(".field ul>li").click(function(){
-		//console.log( $(this).text() )
+	$("#trazar").click(function(){
 		
-		//console.log( $(this).parent().parent().children(".field-toggle").text())
+		/*var flightPath = new google.maps.Polyline({
+			path: seleccion,
+			geodesic: true,
+			strokeColor: '#a2daf2',
+			strokeOpacity: 1.0,
+			strokeWeight: 5
+		});
+
+		flightPath.setMap(map);
+		*/
+		console.log("dibujando");
+		console.log(seleccion[0]);
+		console.log(seleccion[1]);
+		directionsDisplay = new google.maps.DirectionsRenderer();
+		directionsDisplay.setMap(map);
+		function calcRoute() {
+			var start = seleccion[0]
+			var end = seleccion[1]
+			var request = {
+				origin:start,
+				destination:end,
+				travelMode: google.maps.TravelMode.DRIVING
+			};
+			directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				}
+			});
+		}
+
+
+
+	})
+
+	$(".field ul>li").click(function(){
+
 		$(this).parent().parent().children(".field-toggle").text( $(this).text() )
 
 		$(".background").removeClass("open")
@@ -136,21 +182,18 @@ $(document).ready(function(){
 
 		var caso = $(this).attr("data-type")
 		
-		//console.log(caso);
+	
 		switch (caso){
 			case "tipo":
 			tipo = $(this).attr("data-value")
-			console.log("tipo");
 			break
 
 			case "radius":
 			radius = $(this).attr("data-value")
-			console.log("raidous");
 			break
 
 			case "precio":
 			precio = $(this).attr("data-value")
-			console.log("precio");
 			break
 		}	
 
@@ -158,9 +201,21 @@ $(document).ready(function(){
 
 	$("#nl-submit").click(function(){
 		query = "https://api.foursquare.com/v2/venues/explore?client_id=Z0IEHNY5BAQXCLVYS3FASWUJKLHNOKD3C3M100RUXBROCT0Q&client_secret=03ZQUSZDUSX4HF3H1W0KU31UMIWGATPOU2JZ4XFB1VDZTLIE&v=20130815&ll=" + lat + "," + lon + "&categoryId=" + tipo + "&radius=" + radius
-		//console.log(query);
+	
 		$(".paso1").addClass("ocultar")
 		$(".paso2").removeClass("ocultar")
+
+		options = {
+			mapTypeControlOptions: {
+				mapTypeIds: ["Styled"]
+			},
+			center: new google.maps.LatLng(lat, lon),
+			zoom: 13,
+			mapTypeId: "Styled",
+			streetViewControl: !1,
+			overviewMapControl: !1,
+			mapTypeControl: !1
+		},
 
 		map = new google.maps.Map(div, options),
 		styledMapType = new google.maps.StyledMapType(styles, {
@@ -175,7 +230,7 @@ function initialize() {
 	map.mapTypes.set("Styled", styledMapType), 
 	new google.maps.InfoWindow, 
 	$.getJSON(query, buildList)
-	console.log(query);
+
 }
 
 function createMarker(a, b, c, d, e, id, cont) {
@@ -188,12 +243,18 @@ function createMarker(a, b, c, d, e, id, cont) {
 		icon: e + "bg_64.png"
 	});
 	google.maps.event.addListener(f, "click", function () {
+		if (that) {
+			that.setZIndex();
+		}
+		that = this;
+		this.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
 		infowindow.setContent(c + "<br><span class='subtitle'>" + d + "</h6>"), infowindow.open(map, this)
 	})
 
 	markers.push(f);
 
 	var lugar = "<div class='lugar' data-lat='" + a + "' data-lng='"+ b +"' data-id='"+ cont +"'>"
+	lugar += "<e>"+ (cont+ 1 ) +" </e>"  
 	lugar += "<img src='" + e + "bg_64.png'>" 
 	lugar += "<span>" + c + "</span>" 
 	lugar += "<i class='ocultar boton-add right fi-plus' data-id='"+ id + "' href='#' id='"+ cont +"''></i>" 
@@ -212,14 +273,14 @@ function createMarker(a, b, c, d, e, id, cont) {
 	$(".boton-add").unbind().click(addLugar)
 	$(".lugar").click(centerMap)
 
-
 }
 
 function addLugar(){
-	//console.log(lel);
-	console.log(event.target.id)
-	$( this ).parent().clone().appendTo( ".seleccion" );
 	
+	$( this ).parent().clone().appendTo( ".seleccion" );
+	var tempArray = new google.maps.LatLng( $(this).parent().attr("data-lat"), $(this).parent().attr("data-lng") )
+	seleccion.push( tempArray )
+
 }
 
 function centerMap(){
@@ -233,6 +294,6 @@ function buildList(a) {
 
 	$.each(a.response.groups[0].items, function (a, b) {
 		createMarker(b.venue.location.lat, b.venue.location.lng, b.venue.name, b.venue.categories[0].shortName, b.venue.categories[0].icon.prefix, b.venue.id,a)
-		console.log(b)
+
 	})
 }
