@@ -103,6 +103,7 @@ query = "",
 latitudG,
 longitudG,
 markers = [],
+direcciones = [],
 seleccion = new Array();
 
 //google.maps.event.addDomListener(window, "load", initialize);
@@ -149,14 +150,12 @@ $(document).ready(function(){
 
 		flightPath.setMap(map);
 		*/
-		console.log("dibujando");
-		console.log(seleccion[0]);
-		console.log(seleccion[1]);
-		directionsDisplay = new google.maps.DirectionsRenderer();
-		directionsDisplay.setMap(map);
-		function calcRoute() {
-			var start = seleccion[0]
-			var end = seleccion[1]
+
+		console.log("dibujando")
+		
+		for(i = 0; i < seleccion.length-1; i++){
+			var start = seleccion[i]
+			var end = seleccion[i+1]
 			var request = {
 				origin:start,
 				destination:end,
@@ -164,10 +163,15 @@ $(document).ready(function(){
 			};
 			directionsService.route(request, function(response, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
+					console.log(response);
+					direcciones.push()
 					directionsDisplay.setDirections(response);
+
 				}
 			});
 		}
+		
+		
 
 
 
@@ -182,7 +186,7 @@ $(document).ready(function(){
 
 		var caso = $(this).attr("data-type")
 		
-	
+
 		switch (caso){
 			case "tipo":
 			tipo = $(this).attr("data-value")
@@ -201,32 +205,37 @@ $(document).ready(function(){
 
 	$("#nl-submit").click(function(){
 		query = "https://api.foursquare.com/v2/venues/explore?client_id=Z0IEHNY5BAQXCLVYS3FASWUJKLHNOKD3C3M100RUXBROCT0Q&client_secret=03ZQUSZDUSX4HF3H1W0KU31UMIWGATPOU2JZ4XFB1VDZTLIE&v=20130815&ll=" + lat + "," + lon + "&categoryId=" + tipo + "&radius=" + radius
-	
+
 		$(".paso1").addClass("ocultar")
 		$(".paso2").removeClass("ocultar")
 
-		options = {
-			mapTypeControlOptions: {
-				mapTypeIds: ["Styled"]
-			},
-			center: new google.maps.LatLng(lat, lon),
-			zoom: 13,
-			mapTypeId: "Styled",
-			streetViewControl: !1,
-			overviewMapControl: !1,
-			mapTypeControl: !1
-		},
-
-		map = new google.maps.Map(div, options),
-		styledMapType = new google.maps.StyledMapType(styles, {
-			name: "Styled"
-		})
 		initialize()
 	})
 })
 
 
 function initialize() {
+	directionsDisplay = new google.maps.DirectionsRenderer();
+
+	options = {
+		mapTypeControlOptions: {
+			mapTypeIds: ["Styled"]
+		},
+		center: new google.maps.LatLng(lat, lon),
+		zoom: 13,
+		mapTypeId: "Styled",
+		streetViewControl: !1,
+		overviewMapControl: !1,
+		mapTypeControl: !1
+	},
+
+	map = new google.maps.Map(div, options),
+	directionsDisplay.setMap(map);
+
+	styledMapType = new google.maps.StyledMapType(styles, {
+		name: "Styled"
+	})
+
 	map.mapTypes.set("Styled", styledMapType), 
 	new google.maps.InfoWindow, 
 	$.getJSON(query, buildList)
